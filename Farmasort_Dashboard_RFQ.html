@@ -1,0 +1,362 @@
+
+<style>
+:root {
+  --idl-blue:#1A1FC8; --idl-navy:#1B2A5E; --idl-red:#E8001D;
+  --idl-orange:#E87722; --idl-green:#1A7F3C;
+  --idl-bg:#F0F2F8; --idl-white:#FFFFFF;
+  --idl-border:#D0D5E8; --idl-text:#2C2C2C; --idl-muted:#5A6170; --idl-dim:#8A91A8;
+  --idl-font:'Calibri','Arial',sans-serif; --idl-r:12px; --idl-r2:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--idl-font);color:var(--idl-text);background:var(--idl-bg);}
+.page{padding:16px;max-width:1400px;margin:0 auto;}
+
+.topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:18px 24px;border-radius:14px;background:linear-gradient(135deg,#0A0FA0 0%,#1A2FC8 100%);margin-bottom:14px;position:relative;overflow:hidden;}
+.topbar::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none;}
+.brand{display:flex;align-items:flex-start;gap:14px;}
+.logo-box{background:#fff;border-radius:7px;padding:5px 9px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.logo-box span{font-size:11px;font-weight:700;color:var(--idl-navy);letter-spacing:.04em;text-transform:uppercase;line-height:1.2;}
+.logo-box em{display:block;font-style:normal;color:var(--idl-red);font-size:8px;letter-spacing:.08em;text-transform:uppercase;}
+.brand-text h1{font-size:20px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.02em;line-height:1.15;}
+.brand-text p{margin-top:4px;color:rgba(255,255,255,.7);font-size:12px;}
+.red-line{width:32px;height:3px;background:var(--idl-red);margin:7px 0 0;}
+.badges{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;align-items:flex-start;}
+.badge{padding:5px 11px;border-radius:6px;font-size:10px;font-family:monospace;white-space:nowrap;font-weight:500;}
+.badge-w{color:#fff;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);}
+.badge-o{color:var(--idl-orange);background:rgba(255,255,255,.12);border:1px solid rgba(232,119,34,.5);}
+.badge-r{color:#ffb3bb;background:rgba(232,0,29,.25);border:1px solid rgba(232,0,29,.5);}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-bottom:14px;}
+.kpi{background:var(--idl-white);border:1px solid var(--idl-border);border-radius:var(--idl-r);padding:14px 14px 12px;border-top:3px solid var(--idl-border);}
+.kpi-h{border-top-color:var(--idl-blue);background:linear-gradient(180deg,rgba(26,31,200,.07),#fff);}
+.kpi-r{border-top-color:var(--idl-red);}
+.kpi-g{border-top-color:var(--idl-green);}
+.kpi-o{border-top-color:var(--idl-orange);}
+.kpi__lbl{font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:var(--idl-dim);font-weight:700;}
+.kpi-h .kpi__lbl{color:var(--idl-blue);}
+.kpi__val{margin-top:5px;font-size:22px;font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--idl-navy);}
+.kpi-h .kpi__val{color:var(--idl-blue);}
+.kpi__sub{margin-top:5px;color:var(--idl-muted);font-size:10px;line-height:1.4;}
+
+.tabs{display:flex;gap:6px;margin-bottom:12px;}
+.tab{padding:7px 16px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--idl-border);background:var(--idl-white);color:var(--idl-muted);transition:.15s;}
+.tab.active{background:var(--idl-navy);color:#fff;border-color:var(--idl-navy);}
+
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.layout-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px;}
+.panel{background:var(--idl-white);border:1px solid var(--idl-border);border-radius:var(--idl-r);padding:18px 18px 16px;}
+.panel-full{grid-column:1/-1;}
+.ph{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--idl-border);}
+.pt{font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--idl-navy);font-weight:700;position:relative;padding-bottom:8px;}
+.pt::after{content:'';display:block;width:24px;height:3px;background:var(--idl-red);margin-top:5px;border-radius:2px;}
+.pn{font-size:11px;color:var(--idl-muted);max-width:360px;margin-top:2px;}
+
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:10px;}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--idl-muted);}
+.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+
+.foot{margin-top:14px;padding:10px 16px;border:1px solid var(--idl-border);border-radius:10px;background:var(--idl-white);display:flex;align-items:center;gap:8px;}
+.foot-logo{background:var(--idl-navy);border-radius:5px;padding:3px 7px;font-size:8px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;flex:0 0 auto;}
+.foot-logo em{display:block;font-style:normal;color:rgba(255,255,255,.5);font-size:6px;letter-spacing:.1em;}
+.foot-dot{width:5px;height:5px;border-radius:50%;background:var(--idl-red);flex:0 0 auto;}
+.foot-txt{font-size:10px;color:var(--idl-muted);}
+
+select.idl-sel{background:var(--idl-white);border:1px solid var(--idl-border);color:var(--idl-text);padding:5px 8px;border-radius:6px;font-size:11px;font-family:var(--idl-font);outline:none;}
+
+.view{display:none;}
+.view.active{display:block;}
+</style>
+
+<div class="page">
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;">Dashboard RFQ Farmasort — volumes, ETP et capacités par année 2026-2029</h2>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="logo-box"><span>ID<br>Logistics<em>group</em></span></div>
+    <div class="brand-text">
+      <h1>Dashboard RFQ — Farmasort</h1>
+      <p>ID Logistics France · DC St Léger près Troyes · Contrat 36 mois</p>
+      <div class="red-line"></div>
+    </div>
+  </div>
+  <div class="badges">
+    <span class="badge badge-w">Closed Book v2.0</span>
+    <span class="badge badge-o">Launch : 08/09/2026</span>
+    <span class="badge badge-r">Amazon Farmasort</span>
+  </div>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi kpi-h"><div class="kpi__lbl">Durée contrat</div><div class="kpi__val">36 mois</div><div class="kpi__sub">Sept 2026 → Sept 2029</div></div>
+  <div class="kpi kpi-r"><div class="kpi__lbl">Peak inv. (cbm)</div><div class="kpi__val">45 051</div><div class="kpi__sub">Nov 2026 · peak week</div></div>
+  <div class="kpi"><div class="kpi__lbl">Surface (m²)</div><div class="kpi__val">49 959</div><div class="kpi__sub">Footprint opérationnel</div></div>
+  <div class="kpi kpi-o"><div class="kpi__lbl">Peak ETP</div><div class="kpi__val">~621</div><div class="kpi__sub">S48 2026 · Black Friday</div></div>
+  <div class="kpi kpi-g"><div class="kpi__lbl">OB peak/jour</div><div class="kpi__val">75 474</div><div class="kpi__sub">Cartons/jour 2026</div></div>
+  <div class="kpi"><div class="kpi__lbl">Sortations</div><div class="kpi__val">45</div><div class="kpi__sub">Chutes sorter</div></div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('volumes')">Volumes IB/OB/INV</button>
+  <button class="tab" onclick="switchTab('etp')">Ramp-up ETP</button>
+  <button class="tab" onclick="switchTab('capacite')">Capacités annuelles</button>
+</div>
+
+<div id="view-volumes" class="view active">
+  <div class="panel" style="margin-bottom:12px;">
+    <div class="ph">
+      <div><div class="pt">Volumes mensuels — IB, OB & Inventaire</div><div class="pn">Cartons entrants/sortants et volume inventaire (cbm) — 2026 à 2029</div></div>
+      <select class="idl-sel" id="year-sel" onchange="filterYear()">
+        <option value="all">Toutes années</option>
+        <option value="2026" selected>2026</option>
+        <option value="2027">2027</option>
+        <option value="2028">2028</option>
+        <option value="2029">2029</option>
+      </select>
+    </div>
+    <div class="legend">
+      <span class="leg-item"><span class="leg-dot" style="background:#1A1FC8;"></span>IB Cartons</span>
+      <span class="leg-item"><span class="leg-dot" style="background:#E87722;"></span>OB Cartons</span>
+      <span class="leg-item"><span class="leg-dot" style="background:#1A7F3C;border-radius:50%;"></span>Inventaire cbm</span>
+    </div>
+    <div style="position:relative;width:100%;height:280px;"><canvas id="chartVol" role="img" aria-label="Graphique volumes IB/OB mensuels 2026-2029">Volumes inbound et outbound mensuels Farmasort.</canvas></div>
+  </div>
+</div>
+
+<div id="view-etp" class="view">
+  <div class="layout" style="margin-bottom:12px;">
+    <div class="panel">
+      <div class="ph"><div><div class="pt">ETP total hebdomadaire</div><div class="pn">Équivalents temps plein calculés (base 45h/sem) — S37 à S53 2026</div></div></div>
+      <div class="legend">
+        <span class="leg-item"><span class="leg-dot" style="background:#1A1FC8;"></span>ETP total</span>
+        <span class="leg-item"><span class="leg-dot" style="background:#E8001D;width:2px;height:10px;border-radius:1px;"></span>Seuil 600</span>
+      </div>
+      <div style="position:relative;width:100%;height:240px;"><canvas id="chartETP" role="img" aria-label="ETP total par semaine 2026">ETP requis par semaine lors du ramp-up 2026.</canvas></div>
+    </div>
+    <div class="panel">
+      <div class="ph"><div><div class="pt">ETP par catégorie — S47 (peak)</div><div class="pn">Décomposition des besoins en main-d'œuvre à la semaine de pointe</div></div></div>
+      <div style="position:relative;width:100%;height:240px;"><canvas id="chartETPCat" role="img" aria-label="ETP par catégorie semaine 47 2026">Décomposition ETP par activité au peak.</canvas></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="ph"><div><div class="pt">Évolution ETP par activité — S37 à S53</div><div class="pn">Barres empilées : montée en charge par flux opérationnel</div></div></div>
+    <div class="legend" id="leg-stack"></div>
+    <div style="position:relative;width:100%;height:280px;"><canvas id="chartStack" role="img" aria-label="ETP empilé par activité lors du ramp-up 2026">ETP empilé par activité lors du ramp-up.</canvas></div>
+  </div>
+</div>
+
+<div id="view-capacite" class="view">
+  <div class="layout-3" style="margin-bottom:12px;">
+    <div class="panel">
+      <div class="ph"><div><div class="pt">OB annuel (cartons)</div><div class="pn">Volume total outbound par année contractuelle</div></div></div>
+      <div style="position:relative;width:100%;height:200px;"><canvas id="chartOBAnn" role="img" aria-label="OB annuel cartons 2026-2029">OB annuel en millions de cartons.</canvas></div>
+    </div>
+    <div class="panel">
+      <div class="ph"><div><div class="pt">IB annuel (cartons)</div><div class="pn">Volume total inbound par année contractuelle</div></div></div>
+      <div style="position:relative;width:100%;height:200px;"><canvas id="chartIBAnn" role="img" aria-label="IB annuel cartons 2026-2029">IB annuel en millions de cartons.</canvas></div>
+    </div>
+    <div class="panel">
+      <div class="ph"><div><div class="pt">Peak Inv (millions d'unités)</div><div class="pn">Inventaire peak par année — unités stockées</div></div></div>
+      <div style="position:relative;width:100%;height:200px;"><canvas id="chartInvAnn" role="img" aria-label="Peak inventaire unités par année">Inventaire unités peak par année.</canvas></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="ph"><div><div class="pt">Productivités clés — inbound</div><div class="pn">Unités / cartons / palettes par heure · constantes sur le contrat</div></div></div>
+    <div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+      <thead><tr style="background:var(--idl-navy);color:#fff;">
+        <th style="padding:9px 12px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.06em;">Activité</th>
+        <th style="padding:9px 12px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.06em;">Libellé AMZ</th>
+        <th style="padding:9px 12px;text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:.06em;">Productivité</th>
+        <th style="padding:9px 12px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.06em;">Unité</th>
+      </tr></thead>
+      <tbody id="prod-table"></tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="foot-logo">ID<br><em>Logistics</em></div>
+  <div class="foot-dot"></div>
+  <span class="foot-txt">RFQ Closed Book v2.0 · DC FR IDL Farmasort · St Léger près Troyes · Soumission 11/03/2026 · Données extraites automatiquement</span>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const MONTHS = [
+  {d:'2026-09',y:2026,m:9,ib:730008,inv_cbm:14762,ob:100395},
+  {d:'2026-10',y:2026,m:10,ib:1430330,inv_cbm:35177,ob:559635},
+  {d:'2026-11',y:2026,m:11,ib:1570702,inv_cbm:45051,ob:1187995},
+  {d:'2026-12',y:2026,m:12,ib:1669919,inv_cbm:42614,ob:1735414},
+  {d:'2027-01',y:2027,m:1,ib:616591,inv_cbm:38697,ob:1019249},
+  {d:'2027-02',y:2027,m:2,ib:685587,inv_cbm:31738,ob:803372},
+  {d:'2027-03',y:2027,m:3,ib:833665,inv_cbm:29930,ob:926995},
+  {d:'2027-04',y:2027,m:4,ib:598631,inv_cbm:27439,ob:632101},
+  {d:'2027-05',y:2027,m:5,ib:619823,inv_cbm:27234,ob:641962},
+  {d:'2027-06',y:2027,m:6,ib:925466,inv_cbm:29822,ob:801665},
+  {d:'2027-07',y:2027,m:7,ib:677853,inv_cbm:29624,ob:739490},
+  {d:'2027-08',y:2027,m:8,ib:1416646,inv_cbm:30286,ob:1335215},
+  {d:'2027-09',y:2027,m:9,ib:1503131,inv_cbm:35639,ob:1274819},
+  {d:'2027-10',y:2027,m:10,ib:1787676,inv_cbm:43643,ob:1446321},
+  {d:'2027-11',y:2027,m:11,ib:2241873,inv_cbm:45423,ob:2403944},
+  {d:'2027-12',y:2027,m:12,ib:1382295,inv_cbm:36277,ob:1706432},
+  {d:'2028-01',y:2028,m:1,ib:1037802,inv_cbm:29428,ob:1239063},
+  {d:'2028-02',y:2028,m:2,ib:1263779,inv_cbm:26449,ob:1345243},
+  {d:'2028-03',y:2028,m:3,ib:1237467,inv_cbm:28547,ob:1112393},
+  {d:'2028-04',y:2028,m:4,ib:1104547,inv_cbm:28095,ob:1123835},
+  {d:'2028-05',y:2028,m:5,ib:1259679,inv_cbm:26613,ob:1390937},
+  {d:'2028-06',y:2028,m:6,ib:1402177,inv_cbm:31622,ob:1120490},
+  {d:'2028-07',y:2028,m:7,ib:1271161,inv_cbm:31121,ob:1376765},
+  {d:'2028-08',y:2028,m:8,ib:1357346,inv_cbm:28066,ob:1405712},
+  {d:'2028-09',y:2028,m:9,ib:1572019,inv_cbm:35097,ob:1269839},
+  {d:'2028-10',y:2028,m:10,ib:1870399,inv_cbm:44186,ob:1513985},
+  {d:'2028-11',y:2028,m:11,ib:2263476,inv_cbm:45218,ob:2336003},
+  {d:'2028-12',y:2028,m:12,ib:1441175,inv_cbm:37271,ob:1826483},
+  {d:'2029-01',y:2029,m:1,ib:836220,inv_cbm:27005,ob:1086977},
+  {d:'2029-02',y:2029,m:2,ib:819989,inv_cbm:22720,ob:929832},
+  {d:'2029-03',y:2029,m:3,ib:897498,inv_cbm:24396,ob:894476},
+  {d:'2029-04',y:2029,m:4,ib:680316,inv_cbm:20990,ob:791700},
+  {d:'2029-05',y:2029,m:5,ib:710453,inv_cbm:20721,ob:801453},
+  {d:'2029-06',y:2029,m:6,ib:949095,inv_cbm:24263,ob:923614},
+  {d:'2029-07',y:2029,m:7,ib:750029,inv_cbm:23742,ob:848313},
+  {d:'2029-08',y:2029,m:8,ib:1178540,inv_cbm:24588,ob:1228006},
+  {d:'2029-09',y:2029,m:9,ib:0,inv_cbm:0,ob:0},
+];
+
+const ETP_WEEKS = [37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53];
+const ETP_TOTAL = [34.9,82.9,135.6,205.0,277.4,313.8,332.1,324.4,376.7,409.1,515.2,621.3,631.1,598.4,539.0,359.1,371.0];
+const ETP_CATS = {
+  'Décharg.':[2.4,5.0,7.3,10.2,10.6,14.0,13.1,11.0,12.4,12.8,14.6,13.6,13.1,12.4,9.6,11.2,10.5],
+  'Réception':[17.0,35.2,51.8,72.0,75.1,99.1,92.6,77.9,88.1,90.6,103.2,96.5,92.7,87.9,67.9,79.5,74.4],
+  'Stockage':[8.5,17.6,26.0,36.0,37.6,49.6,46.4,39.0,44.2,45.4,51.7,48.4,46.4,44.0,34.0,39.8,37.3],
+  'Réappro':[4.7,9.7,14.3,19.8,20.7,27.3,25.5,21.4,24.3,24.9,28.4,26.6,25.5,24.2,18.7,21.9,20.5],
+  'Picking':[0.0,4.0,11.1,21.8,46.9,42.1,54.1,62.7,74.7,85.1,115.7,161.5,168.2,159.5,152.6,74.7,83.3],
+  'Sorter':[0.0,3.0,8.2,16.1,34.6,31.0,39.9,46.3,55.1,62.7,85.3,119.1,124.1,117.6,112.5,55.1,61.4],
+  'Palette':[0.0,2.3,6.3,12.4,26.8,24.0,30.9,35.8,42.6,48.5,66.0,92.1,95.9,90.9,87.0,42.6,47.5],
+};
+const CAT_COLORS = ['#4A6FD8','#1A1FC8','#1B2A5E','#1A7F3C','#E87722','#E8001D','#8A91A8'];
+
+const ANNUAL = {
+  labels:['2026 (115j)','2027','2028','2029 (250j)'],
+  ob:[3583440,13731560,17074510,10114440],
+  ib:[5400959,13289240,17012340,9933960],
+  inv:[1921473,1937320,1907712,1286516],
+};
+
+const PRODS = [
+  ['Déchargement pal','NVF Unload Productivity - Pallets',25.01,'pal/h'],
+  ['Déchargement vrac camion','NVF Unload loose load: parcel',139.42,'cartons/h'],
+  ['Déchargement vrac container','NVF Unload loose load: container',168.27,'cartons/h'],
+  ['Réception auto','Receive Support',438,'cartons/h'],
+  ['Réception pal','Pallet Receive',30.77,'pal/h'],
+  ['Réception carton','Case Receive',70.19,'cartons/h'],
+  ['Each Receive - Small','Each Receive - Small',204.81,'unités/h'],
+  ['Stockage carton','Case Stow to Reserve',65.38,'cartons/h'],
+  ['Stockage pal','Pallet Stow Reserve',20.19,'pal/h'],
+  ['Réappro pal','Pallet Replenishment',15,'pal/h'],
+  ['Réappro dyna','Case Replenishment',92,'cartons/h'],
+  ['Picking carton rack','Case pick Wide Aisle',63,'cartons/h'],
+  ['Picking carton VNA','Case pick VNA',51,'cartons/h'],
+  ['Tri manuel Small','RC Sort Small, Manual',278.85,'unités/h'],
+];
+
+let volChart=null,etpChart=null,etpCatChart=null,stackChart=null,obAnnChart=null,ibAnnChart=null,invAnnChart=null;
+
+function mk(id,type,labels,datasets,opts){
+  const ctx=document.getElementById(id);
+  if(!ctx)return;
+  return new Chart(ctx,{type,data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},...(opts?.plugins||{})},scales:{...opts?.scales}}});
+}
+
+function filterYear(){
+  const y=document.getElementById('year-sel').value;
+  const data=y==='all'?MONTHS:MONTHS.filter(r=>r.y===parseInt(y));
+  if(volChart){
+    volChart.data.labels=data.map(r=>r.d);
+    volChart.data.datasets[0].data=data.map(r=>r.ib/1e6);
+    volChart.data.datasets[1].data=data.map(r=>r.ob/1e6);
+    volChart.data.datasets[2].data=data.map(r=>r.inv_cbm/1000);
+    volChart.update();
+  }
+}
+
+function buildVol(){
+  const data=MONTHS.filter(r=>r.y===2026);
+  volChart=mk('chartVol','bar',
+    data.map(r=>r.d),
+    [
+      {label:'IB (M cartons)',data:data.map(r=>+(r.ib/1e6).toFixed(2)),backgroundColor:'#1A1FC8',borderRadius:3,order:2},
+      {label:'OB (M cartons)',data:data.map(r=>+(r.ob/1e6).toFixed(2)),backgroundColor:'#E87722',borderRadius:3,order:3},
+      {label:'Inv cbm (×1000)',data:data.map(r=>+(r.inv_cbm/1000).toFixed(1)),type:'line',borderColor:'#1A7F3C',backgroundColor:'rgba(26,127,60,.1)',pointRadius:4,pointBackgroundColor:'#1A7F3C',fill:true,tension:.3,yAxisID:'y2',order:1},
+    ],
+    {scales:{y:{title:{display:true,text:'Millions cartons',font:{size:10}},ticks:{callback:v=>v.toFixed(1)+'M'}},y2:{position:'right',title:{display:true,text:'Inv cbm (×1000)',font:{size:10}},grid:{drawOnChartArea:false},ticks:{callback:v=>v.toFixed(0)+'k'}}},plugins:{tooltip:{callbacks:{label:ctx=>ctx.datasetIndex<2?ctx.parsed.y.toFixed(2)+'M cartons':(ctx.parsed.y*1000).toFixed(0)+' cbm'}}}}
+  );
+}
+
+function buildETP(){
+  etpChart=mk('chartETP','bar',
+    ETP_WEEKS.map(w=>'S'+w),
+    [{label:'ETP',data:ETP_TOTAL,backgroundColor:ETP_TOTAL.map(v=>v>=500?'#E8001D':v>=300?'#E87722':'#1A1FC8'),borderRadius:3},
+     {label:'Seuil 600',data:ETP_WEEKS.map(()=>600),type:'line',borderColor:'#E8001D',borderDash:[4,4],pointRadius:0,fill:false}],
+    {scales:{y:{suggestedMax:700,title:{display:true,text:'ETP (base 45h/sem)',font:{size:10}}}},plugins:{tooltip:{callbacks:{label:ctx=>'ETP: '+ctx.parsed.y.toFixed(1)}}}}
+  );
+
+  const peakIdx=10;
+  const catLabels=Object.keys(ETP_CATS);
+  const catData=catLabels.map(c=>ETP_CATS[c][peakIdx]);
+  etpCatChart=mk('chartETPCat','bar',
+    catLabels,
+    [{label:'ETP',data:catData,backgroundColor:CAT_COLORS,borderRadius:4}],
+    {indexAxis:'y',scales:{x:{title:{display:true,text:'ETP (base 45h/sem)',font:{size:10}}}},plugins:{tooltip:{callbacks:{label:ctx=>'ETP: '+ctx.parsed.x.toFixed(1)}}}}
+  );
+
+  const legEl=document.getElementById('leg-stack');
+  catLabels.forEach((c,i)=>{
+    const s=document.createElement('span');s.className='leg-item';
+    s.innerHTML=`<span class="leg-dot" style="background:${CAT_COLORS[i]}"></span>${c}`;
+    legEl.appendChild(s);
+  });
+
+  stackChart=mk('chartStack','bar',
+    ETP_WEEKS.map(w=>'S'+w),
+    catLabels.map((c,i)=>({label:c,data:ETP_CATS[c],backgroundColor:CAT_COLORS[i],stack:'s',borderRadius:0})),
+    {scales:{y:{stacked:true,title:{display:true,text:'ETP total',font:{size:10}}},x:{stacked:true}},plugins:{tooltip:{mode:'index',callbacks:{footer:items=>'Total: '+Math.round(items.reduce((s,i)=>s+i.parsed.y,0))}}}}
+  );
+}
+
+function buildCapacite(){
+  const fmt=v=>+(v/1e6).toFixed(2);
+  obAnnChart=mk('chartOBAnn','bar',ANNUAL.labels,
+    [{label:'OB (M cartons)',data:ANNUAL.ob.map(fmt),backgroundColor:['#E8001D55','#E8001DAA','#E8001DCC','#E8001D77'],borderColor:'#E8001D',borderWidth:1.5,borderRadius:4}],
+    {scales:{y:{title:{display:true,text:'Millions cartons',font:{size:10}},ticks:{callback:v=>v.toFixed(1)+'M'}}},plugins:{tooltip:{callbacks:{label:ctx=>ctx.parsed.y.toFixed(2)+'M cartons'}}}}
+  );
+  ibAnnChart=mk('chartIBAnn','bar',ANNUAL.labels,
+    [{label:'IB (M cartons)',data:ANNUAL.ib.map(fmt),backgroundColor:['#1A1FC855','#1A1FC8AA','#1A1FC8CC','#1A1FC877'],borderColor:'#1A1FC8',borderWidth:1.5,borderRadius:4}],
+    {scales:{y:{title:{display:true,text:'Millions cartons',font:{size:10}},ticks:{callback:v=>v.toFixed(1)+'M'}}},plugins:{tooltip:{callbacks:{label:ctx=>ctx.parsed.y.toFixed(2)+'M cartons'}}}}
+  );
+  invAnnChart=mk('chartInvAnn','bar',ANNUAL.labels,
+    [{label:'Peak inv (M unités)',data:ANNUAL.inv.map(v=>+(v/1e6).toFixed(2)),backgroundColor:['#1A7F3C55','#1A7F3CAA','#1A7F3CCC','#1A7F3C77'],borderColor:'#1A7F3C',borderWidth:1.5,borderRadius:4}],
+    {scales:{y:{title:{display:true,text:'Millions unités',font:{size:10}},ticks:{callback:v=>v.toFixed(2)+'M'}}},plugins:{tooltip:{callbacks:{label:ctx=>ctx.parsed.y.toFixed(2)+'M unités'}}}}
+  );
+
+  const tbody=document.getElementById('prod-table');
+  PRODS.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.style.background=i%2===0?'#F8F9FD':'#fff';
+    tr.innerHTML=`<td style="padding:8px 12px;font-weight:600;color:var(--idl-navy)">${r[0]}</td><td style="padding:8px 12px;color:var(--idl-muted)">${r[1]}</td><td style="padding:8px 12px;text-align:right;font-family:Consolas,monospace;font-weight:600;color:var(--idl-blue)">${r[2]}</td><td style="padding:8px 12px;color:var(--idl-dim)">${r[3]}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('view-'+t).classList.add('active');
+  if(t==='etp'&&!etpChart)buildETP();
+  if(t==='capacite'&&!obAnnChart)buildCapacite();
+}
+
+buildVol();
+</script>
